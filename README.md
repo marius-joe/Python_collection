@@ -4,6 +4,4 @@
 [![GitHub issues](https://img.shields.io/github/issues/marius-joe/Python_collection.svg)](https://github.com/marius-joe/Python_collection/issues/)
 [![GitHub license](https://img.shields.io/github/license/marius-joe/Python_collection.svg)](https://github.com/marius-joe/Python_collection/blob/master/LICENSE)
 
-*[coming soon]*
-
 **Collection of helper/utility scripts**
