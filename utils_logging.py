@@ -4,7 +4,7 @@
 #  Dev:  marius-joe
 # ******************************************
 #  Logging Utilities
-#  v1.0.6
+#  v1.0.7
 # ******************************************
 
 """Utility functions for logging"""

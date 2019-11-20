@@ -4,7 +4,7 @@
 #  Dev:  marius-joe
 # ******************************************
 #  Microsoft Office Utilities
-#  v0.3.2
+#  v0.3.4
 # ******************************************
 
 # Under Construction

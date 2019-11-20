@@ -4,7 +4,7 @@
 #  Dev:  marius-joe
 # ******************************************
 #  Utilities for the HandleBars template engine
-#  v0.2.1
+#  v0.2.2
 # ******************************************
 
 # Under Construction

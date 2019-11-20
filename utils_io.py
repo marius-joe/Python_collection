@@ -4,7 +4,7 @@
 #  Dev:  marius-joe
 # ******************************************
 #  Utilities for file operations
-#  v0.9.2
+#  v0.9.3
 # ******************************************
 
 """Utilities for file operations"""
