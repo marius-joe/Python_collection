@@ -18,26 +18,6 @@ Utilities for request sessions:
 
 import os
 
-# Load external general utils - include needed utils after dev
-# ----------------------------------------------------
-# Get this scripts parent folder path
-# - dot .. form would be only relativ to the current working directory
-from inspect import currentframe, getframeinfo
-
-C_Path_ThisModule = getframeinfo(currentframe()).filename
-C_Path_ParentFolder = os.path.dirname(C_Path_ThisModule)
-C_Path_Python_Projects = os.path.dirname(C_Path_ParentFolder)
-C_Folder_General_Utils = os.path.join(C_Path_Python_Projects, "utils_general")
-C_Path_Module_Logins = os.path.join(C_Path_Python_Projects, "logins")
-
-from utils.module_manager import ModuleManager
-
-ModuleManager = ModuleManager()
-utils_general = ModuleManager.import_module(C_Folder_General_Utils, "utils_general")
-login_form = ModuleManager.import_module(C_Path_Module_Logins, "login_form")
-# ----------------------------------------------------
-
-
 # dill is an advanced version of pickle
 import dill as pickle  # req: https://github.com/uqfoundation/dill
 import requests  # req: https://github.com/kennethreitz/requests
@@ -45,6 +25,17 @@ import datetime
 import time
 import logging
 import json
+
+from . import utils_general
+
+
+# Get this scripts parent folder path
+# - dot .. form would be only relativ to the current working directory
+from inspect import currentframe, getframeinfo
+
+C_Path_ThisModule = getframeinfo(currentframe()).filename
+C_Path_ParentFolder = os.path.dirname(C_Path_ThisModule)
+
 
 C_UserAgent = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0")
 
@@ -131,7 +122,7 @@ class RequestsSessionWriter:
         need_login=False,
     ):
 
-        utils_general.ensure_path(path_sessionFolder)
+        utils_io.ensure_path(path_sessionFolder)
         self.path_session = os.path.join(
             path_sessionFolder, os.path.basename(path_sessionFolder) + ".dat"
         )
