@@ -4,7 +4,7 @@
 #  Dev:  marius-joe
 # ******************************************
 #  General Utilities
-#  v1.1.4
+#  v1.1.5
 # ******************************************
 
 """General utility functions"""
