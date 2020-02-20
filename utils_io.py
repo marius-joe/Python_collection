@@ -18,6 +18,8 @@ import contextlib
 import json
 import fire  # req: https://github.com/google/python-fire
 
+# currently not working
+#from . import utils_general
 
 class FileProcessor:
     """
@@ -62,16 +64,50 @@ def convert_utf8bom(path_file, path_new_file=""):
     return path_new_file
 
 
-def html_to_json(path_file, path_new_file, encoding='utf-8', indent=None):
+def html_to_json(path_file, encoding='utf-8', indent=None):
     # reading with 'utf-8-sig' ensures, that also UTF-8-BOM can be processed
     with open(path_file, 'r', encoding='utf-8-sig') as fi:
         text = fi.read()
     html_json = {'html_code': text}
-    file_path_root, file_ext = os.path.splitext(path_new_file)
+    file_path_root, file_ext = os.path.splitext(path_file)
     path_new_file = file_path_root + ".json"
     with open(path_new_file, 'w', encoding=encoding) as fo:
         json.dump(html_json, fo, ensure_ascii=False, indent=indent)
     return path_new_file
+
+# besser in convert_html_to_json_escaped, da nur aus einzel script Teilen
+# def create_jsonEscaped_text(text, path_new_file, encoding='utf-8', indent=None):
+#     jsonEscaped_text = get_jsonStr_escaped(text, encoding, indent)
+#     file_path_root, file_ext = os.path.splitext(path_file)
+#     path_new_file = file_path_root + "_jsonEsc.txt"
+#     write_file(path_new_file, jsonEscaped_text, mode='text')
+#     return path_new_file
+
+# what if html is not in a file
+# extract the body from an html file
+def extract_html_body(path_file):
+    lines = read_file(path_file, mode='lines')
+    html_body_lines = []
+    toggle_copy_line = False
+    for line in lines:
+        line = line.strip()
+        if line:
+            if not toggle_copy_line:
+                # read everything after the opening body tag
+                toggle_copy_line = line.startswith("<body")
+            else:
+                # read until the closing body tag appears
+                toggle_copy_line = not line.startswith("</body>")
+                if toggle_copy_line: html_body_lines.append(line)
+
+
+
+
+    # new lines have to be kept
+    html_body = ' '.join(html_body_lines)
+    # spaces between html tags can be deleted : <>  <>, maybe better with regex
+    html_body = html_body.replace("> <", "><")
+    return html_body
 
 
 # v1.1
@@ -84,6 +120,15 @@ def get_jsonStr(obj, encoding='utf-8', indent=None):
     return json.dumps(
         obj, ensure_ascii=(encoding == 'ascii'), indent=indent, separators=separators
     )
+
+
+def get_jsonStr_escaped(obj, encoding='utf-8', indent=None):
+    json_str = get_jsonStr(obj, encoding, indent)
+    return json_str[1:-1]
+
+
+def jsonEscapeText(text, encoding='utf-8', indent=None):
+    return get_jsonStr_escaped([text])
 
 
 # v1.1

@@ -103,6 +103,12 @@ def get_word_list(stringOrList):
 # ----------------------------------------------------
 
 
+# remove keys from dictionary given a list of keys or another dict
+def remove_keys(dict, removeKeys):
+    for key in removeKeys:
+        if key in dict: del dict[key]
+
+
 # toDo: has to be improved for empty lists and dicts
 def remove_unwantedItems(myDict, unwanted_values):
     # unwanted_values = ["", None, {}, []])
@@ -151,6 +157,10 @@ def get_jsonStr(obj, encoding='utf-8', indent=None):
 def get_jsonStr_escaped(obj, encoding='utf-8', indent=None):
     json_str = get_jsonStr(obj, encoding, indent)
     return json_str[1:-1]
+
+
+def jsonEscapeText(text, encoding='utf-8', indent=None):
+    return get_jsonStr_escaped([text])
 
 
 def sleep_ms(delay_ms):
